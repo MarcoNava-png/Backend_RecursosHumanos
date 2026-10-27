@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+*.user
+Backend/publicado/
+
+appsettings.Development.json
+appsettings.Production.json
+
+archivos/
+scripts/logs/
+*.csv
+*.dump

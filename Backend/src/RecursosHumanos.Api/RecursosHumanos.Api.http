@@ -1,0 +1,6 @@
+@RecursosHumanos.Api_HostAddress = http://localhost:5112
+
+GET {{RecursosHumanos.Api_HostAddress}}/api/empleados
+Accept: application/json
+
+###
