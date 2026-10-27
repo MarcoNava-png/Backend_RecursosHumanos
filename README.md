@@ -17,27 +17,6 @@ Cuando cambies la estructura de la base, vuelve a generar el script y el modelo:
 .\Backend\scaffold.ps1
 ```
 
-## Servidor de base de datos
-
-1. Instala PostgreSQL 18.
-2. En `postgresql.conf`: `listen_addresses = '*'`
-3. En `pg_hba.conf`, permite la conexión solo desde la IP del servidor de la Api:
-   ```
-   host  recursoshumanos  recursoshumanos_app   192.168.1.30/32  scram-sha-256
-   ```
-4. Reinicia PostgreSQL y abre el puerto solo para esa IP:
-   ```powershell
-   New-NetFirewallRule -DisplayName 'PostgreSQL RecursosHumanos' -Direction Inbound -Protocol TCP -LocalPort 5432 -RemoteAddress 192.168.1.30 -Action Allow
-   ```
-5. Crea la base y los usuarios:
-   ```powershell
-   createdb -U postgres -E UTF8 -T template0 recursoshumanos
-   psql -U postgres -d recursoshumanos -f recursoshumanos.sql
-   psql -U postgres -d recursoshumanos -v clave_app='...' -f usuario_app.sql
-   psql -U postgres -d recursoshumanos -v clave_sync='...' -f usuario_sincronizacion.sql
-   ```
-   `usuario_app.sql` crea el usuario con el que se conecta la Api. Si después se agregan tablas, se vuelve a correr.
-
 ## Frontend
 
 - Documentación: `http://SERVIDOR:5000/scalar`. Por VPN debe estar abierto el puerto 5000.
