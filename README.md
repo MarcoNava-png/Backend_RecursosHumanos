@@ -38,35 +38,6 @@ Cuando cambies la estructura de la base, vuelve a generar el script y el modelo:
    ```
    `usuario_app.sql` crea el usuario con el que se conecta la Api. Si después se agregan tablas, se vuelve a correr.
 
-## Servidor de la Api (Windows Server)
-
-En tu equipo genera el paquete:
-
-```powershell
-.\Backend\publicar.ps1
-```
-
-Copia la carpeta `Backend\publicado` al servidor y en PowerShell como administrador:
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\instalar-servidor.ps1 -ServidorBd 192.168.1.20 -Origenes 'http://localhost:4200' -Documentacion
-```
-
-| Parámetro | Uso |
-|---|---|
-| `-ServidorBd` | IP o nombre del servidor de PostgreSQL |
-| `-Origenes` | Direcciones desde donde corre el frontend |
-| `-Documentacion` | Habilita Scalar y Swagger |
-| `-Destino` | Carpeta de instalación (por defecto `D:\RecursosHumanos`) |
-| `-Puerto` | Puerto de la Api (por defecto 5000) |
-
-Queda instalado el servicio de Windows "RecursosHumanos", que arranca con el servidor, y se abre el puerto en el firewall. La primera vez pide la contraseña de `recursoshumanos_app` y genera `Api\appsettings.Production.json`.
-
-Para actualizar se genera el paquete otra vez, se copia y se corre `.\instalar-servidor.ps1` sin parámetros; la configuración se conserva.
-
-Para cambiar la configuración se edita `D:\RecursosHumanos\Api\appsettings.Production.json` y se corre `Restart-Service RecursosHumanos`. Los errores quedan en el Visor de eventos, en Aplicación, con origen RecursosHumanos.
-
 ## Frontend
 
 - Documentación: `http://SERVIDOR:5000/scalar`. Por VPN debe estar abierto el puerto 5000.
